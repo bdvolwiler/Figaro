@@ -87,7 +87,7 @@ class LyricRetriever:
             song_lyrics.append(link.get_text())
 
         song_lyrics = song_lyrics[0]
-        song_lyrics = song_lyrics.replace("\n", " ")
+        #song_lyrics = song_lyrics.replace("\n", " ")
 
         return song_lyrics
 
@@ -100,6 +100,10 @@ class LyricRetriever:
         #lyrics = re.sub("\\\\", "", lyrics)
         #lyrics = lyrics.decode('string_escape')
         lyrics = re.sub("'", "", lyrics) # there are apparently no backslashes, just backslash escaped apostrophes
+
+        lyrics = re.sub("r'[^\x00-\x7f]", r'', lyrics)
+
+        #lyrics = re.sub("")
         
         return lyrics
 
@@ -119,3 +123,6 @@ class LyricRetriever:
         all_lyrics = LyricRetriever.clean_lyrics(all_lyrics)
             
         self.lyrics = all_lyrics
+
+#retriever = LyricRetriever("Snail Mail")
+#print(retriever.lyrics)
